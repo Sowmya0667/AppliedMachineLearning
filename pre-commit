@@ -1,0 +1,48 @@
+#!/bin/sh
+# =============================================================================
+# .git/hooks/pre-commit
+#
+# Pre-commit hook: runs the full test suite (unit + integration + docker)
+# automatically before every commit to the 'main' branch.
+#
+# Installation (from repo root):
+#   cp pre-commit .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+# =============================================================================
+
+# ── Only enforce on the 'main' branch ─────────────────────────────────────
+BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+if [ "$BRANCH" != "main" ]; then
+    echo "[pre-commit] Not on 'main' branch (currently on '$BRANCH'). Skipping tests."
+    exit 0
+fi
+
+echo "============================================================"
+echo " Pre-commit hook: running pytest on branch '$BRANCH' ..."
+echo "============================================================"
+
+# ── Run pytest with coverage ───────────────────────────────────────────────
+pytest test.py \
+    --cov=app \
+    --cov=score \
+    --cov-report=term-missing \
+    -v
+
+STATUS=$?
+
+# ── Evaluate result ────────────────────────────────────────────────────────
+if [ $STATUS -ne 0 ]; then
+    echo ""
+    echo "============================================================"
+    echo " ✗  Tests FAILED. Commit aborted."
+    echo "    Fix the failing tests before committing to 'main'."
+    echo "============================================================"
+    exit 1
+fi
+
+echo ""
+echo "============================================================"
+echo " ✓  All tests passed. Proceeding with commit."
+echo "============================================================"
+exit 0
