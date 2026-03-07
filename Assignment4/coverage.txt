@@ -1,0 +1,34 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.11.5, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\sowmy\Downloads\SEM4\AML\Assignment4\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\sowmy\Downloads\sem4\AML\Assignment4
+plugins: anyio-4.12.1, cov-7.0.0
+collecting ... collected 16 items
+
+test.py::TestScoreUnit::test_smoke PASSED                                [  6%]
+test.py::TestScoreUnit::test_output_types PASSED                         [ 12%]
+test.py::TestScoreUnit::test_prediction_is_binary PASSED                 [ 18%]
+test.py::TestScoreUnit::test_propensity_range PASSED                     [ 25%]
+test.py::TestScoreUnit::test_threshold_zero_always_spam PASSED           [ 31%]
+test.py::TestScoreUnit::test_threshold_one_always_ham PASSED             [ 37%]
+test.py::TestScoreUnit::test_obvious_spam PASSED                         [ 43%]
+test.py::TestScoreUnit::test_obvious_ham PASSED                          [ 50%]
+test.py::TestFlaskIntegration::test_flask_server_is_up PASSED            [ 56%]
+test.py::TestFlaskIntegration::test_homepage_contains_form PASSED        [ 62%]
+test.py::TestFlaskIntegration::test_score_endpoint_json PASSED           [ 68%]
+test.py::TestFlaskIntegration::test_missing_text_returns_400 PASSED      [ 75%]
+test.py::test_client_homepage PASSED                                     [ 81%]
+test.py::test_client_score_json PASSED                                   [ 87%]
+test.py::test_client_missing_text PASSED                                 [ 93%]
+test.py::test_docker PASSED                                              [100%]
+
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.11.5-final-0 _______________
+
+Name       Stmts   Miss  Cover   Missing
+----------------------------------------
+app.py        23      4    83%   47, 64-65, 72
+score.py      20      0   100%
+----------------------------------------
+TOTAL         43      4    91%
+======================== 16 passed in 86.61s (0:01:26) ========================
